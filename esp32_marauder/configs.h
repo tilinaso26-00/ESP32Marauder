@@ -173,6 +173,25 @@
     #define MARAUDER_MINI_V3
  #endif
 
+
+  #ifdef MARAUDER_DIY_N16R8
+    //#define HAS_FLIPPER_LED
+    //#define HAS_BATTERY
+    #define HAS_BT
+    #define HAS_BUTTONS
+    //#define HAS_NEOPIXEL_LED
+    //#define HAS_PWR_MGMT
+    #define HAS_SCREEN
+    #define HAS_SD
+    #define USE_SD
+    //#define HAS_TEMP_SENSOR
+    //#define HAS_GPS
+    #define HAS_PSRAM
+    #define HAS_NIMBLE_2
+    #define HAS_IDF_3
+    #define HAS_DIRECT_UPLOAD
+  #endif
+
   // CSI is provided by every ESP32-family target in the supported build
   // matrix. Chip-specific configuration and sample decoding live in
   // CsiMotionMonitor; do not infer the sample format from this capability.
@@ -782,6 +801,65 @@
       #include "AXP192.h"
     #endif
 
+
+    #if defined(MARAUDER_DIY_N16R8)
+      #define CHAN_PER_PAGE 14
+      #define SCREEN_CHAR_WIDTH 53
+      #define BANNER_TEXT_SIZE 1
+      #define SCREEN_BUFFER
+      #define MAX_SCREEN_BUFFER 13
+
+      #ifndef TFT_WIDTH
+        #define TFT_WIDTH 240
+      #endif
+      #ifndef TFT_HEIGHT
+        #define TFT_HEIGHT 320
+      #endif
+
+      #define SCREEN_ORIENTATION 3
+      #define SCREEN_WIDTH TFT_HEIGHT
+      #define SCREEN_HEIGHT TFT_WIDTH
+      #define GRAPH_VERT_LIM (SCREEN_HEIGHT / 2 - 1)
+      #define EXT_BUTTON_WIDTH 0
+      #define CHAR_WIDTH 6
+      #define HEIGHT_1 SCREEN_HEIGHT
+      #define WIDTH_1 SCREEN_WIDTH
+      #define STANDARD_FONT_CHAR_LIMIT (SCREEN_WIDTH / 6)
+      #define TEXT_HEIGHT 16
+      #define BOT_FIXED_AREA 0
+      #define TOP_FIXED_AREA 32
+      #define YMAX SCREEN_HEIGHT
+      #define minimum(a,b) (((a) < (b)) ? (a) : (b))
+      #define MENU_FONT &FreeMono9pt7b
+      #define BUTTON_SCREEN_LIMIT 8
+      #define BUTTON_ARRAY_LEN BUTTON_SCREEN_LIMIT
+      #define STATUS_BAR_WIDTH 16
+      #define LVGL_TICK_PERIOD 6
+      #define STATUSBAR_COLOR 0x4A49
+
+      #define FRAME_X 100
+      #define FRAME_Y 64
+      #define FRAME_W 120
+      #define FRAME_H 50
+      #define REDBUTTON_X FRAME_X
+      #define REDBUTTON_Y FRAME_Y
+      #define REDBUTTON_W (FRAME_W / 2)
+      #define REDBUTTON_H FRAME_H
+      #define GREENBUTTON_X (REDBUTTON_X + REDBUTTON_W)
+      #define GREENBUTTON_Y FRAME_Y
+      #define GREENBUTTON_W (FRAME_W / 2)
+      #define GREENBUTTON_H FRAME_H
+
+      #define TFT_MISO 13
+      #define TFT_MOSI 11
+      #define TFT_SCLK 12
+      #define TFT_CS 10
+      #define TFT_DC 15
+      #define TFT_RST 16
+      #define TFT_BL 7
+      #define TOUCH_CS -1
+    #endif
+
     #ifdef MARAUDER_M5STICKCP2 
         // Prevent StickCP2 from turning off when disconnect USB cable
         #define POWER_HOLD_PIN 4
@@ -1092,6 +1170,27 @@
         #define R_BTN 8
         #define D_BTN 9
       #endif
+
+      #define HAS_L
+      #define HAS_R
+      #define HAS_U
+      #define HAS_D
+      #define HAS_C
+
+      #define L_PULL true
+      #define C_PULL true
+      #define U_PULL true
+      #define R_PULL true
+      #define D_PULL true
+    #endif
+
+
+    #ifdef MARAUDER_DIY_N16R8
+      #define L_BTN 6
+      #define C_BTN 21
+      #define U_BTN 4
+      #define R_BTN 17
+      #define D_BTN 5
 
       #define HAS_L
       #define HAS_R
@@ -2916,6 +3015,11 @@
 
     #ifdef MARAUDER_MINI_V3
       #define SD_CS 10
+    #endif
+
+
+    #ifdef MARAUDER_DIY_N16R8
+      #define SD_CS 14
     #endif
 
     #ifdef MARAUDER_POOM
